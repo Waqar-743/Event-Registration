@@ -31,8 +31,8 @@ jobs:
           pip install -r requirements.txt
           pip install ruff pytest pytest-asyncio httpx
 
-      - name: Run Ruff (linting)
-        run: ruff check .
+      - name: Run Ruff (linting with auto-fix)
+        run: ruff check --fix .
 
       - name: Run Ruff (format check)
         run: ruff format --check .

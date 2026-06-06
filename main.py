@@ -108,7 +108,10 @@ async def validation_error_handler(request: Request, exc):
     We reformat them into our consistent error shape.
     """
     errors = exc.errors() if hasattr(exc, "errors") else []
-    messages = [f"{' → '.join(str(l) for l in e['loc'])}: {e['msg']}" for e in errors]
+    messages = [
+        f"{' → '.join(str(loc_item) for loc_item in e['loc'])}: {e['msg']}"
+        for e in errors
+    ]
     return JSONResponse(
         status_code=422,
         content={

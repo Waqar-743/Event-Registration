@@ -22,11 +22,10 @@ from datetime import datetime, timezone
 from typing import List
 
 from fastapi import APIRouter, HTTPException
-import aiosqlite
 
 from database import get_db
 from models import RegisterUserRequest, RegistrationResponse, MessageResponse
-from realtime import broadcast_event_update, broadcast_registration_change
+from realtime import broadcast_registration_change
 
 router = APIRouter(prefix="/api/events", tags=["Registrations"])
 
