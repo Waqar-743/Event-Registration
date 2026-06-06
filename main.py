@@ -11,6 +11,7 @@ Architecture overview:
 """
 
 import logging
+import os
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
@@ -23,6 +24,14 @@ from routes.events import router as events_router
 from routes.registrations import router as registrations_router
 from realtime import manager
 
+
+# ─────────────────────────────────────────
+# CONFIGURATION
+# ─────────────────────────────────────────
+
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "*").split(",")
+PORT = int(os.getenv("PORT", "10000"))
+HOST = os.getenv("HOST", "0.0.0.0")
 
 # ─────────────────────────────────────────
 # LOGGING
@@ -65,10 +74,10 @@ app = FastAPI(
     redoc_url="/api/redoc",
 )
 
-# CORS — allow all origins for development / demo purposes
+# CORS — configurable via ALLOWED_ORIGINS env var
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS if ALLOWED_ORIGINS != ["*"] else ["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

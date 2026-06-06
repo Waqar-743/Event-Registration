@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: event-registration-api
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: ALLOWED_ORIGINS
+        value: "https://event-registration-frontend.onrender.com,http://localhost:3000"
+      - key: PORT
+        value: "10000"
+      - key: HOST
+        value: "0.0.0.0"
+    healthCheckPath: /api/health
+    autoDeploy: true

@@ -7,7 +7,10 @@ performance. Foreign keys are enforced at the connection level.
 import aiosqlite
 import os
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "data", "events.db")
+# Database path configurable via env var for production deployments
+DB_PATH = os.getenv(
+    "DATABASE_PATH", os.path.join(os.path.dirname(__file__), "data", "events.db")
+)
 
 
 async def get_db() -> aiosqlite.Connection:
