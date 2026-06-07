@@ -142,4 +142,3 @@ Verified: 5 concurrent registrations for 1 seat → exactly 1 succeeds, 4 get 40
 
 ---
 
-*Built for Innovaxel Backend Summer Intern Assessment — B0626*
